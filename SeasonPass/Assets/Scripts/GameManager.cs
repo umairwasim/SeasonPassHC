@@ -17,11 +17,6 @@ namespace BhorGames
             Application.targetFrameRate = 60;
         }
 
-        private void Start()
-        {
-            playerAnimator = GetComponent<Animator>();
-        }
-
         private void Update()
         {
             if (!isGameStarted)
@@ -29,7 +24,7 @@ namespace BhorGames
                 if (Input.GetMouseButtonDown(0))
                 {
                     isGameStarted = true;
-                    playerAnimator.SetTrigger(WALK);
+                    playerAnimator.GetComponent<Animator>().SetTrigger(WALK);
                     
                 }
             }
