@@ -4,6 +4,8 @@ using BhorGames;
 
 public class PlayerController : MonoBehaviour
 {
+    private const string MOUSE_X = "Mouse X";
+
     [SerializeField] private float zSpeed = 2f;
     [SerializeField] private float xSpeed = 2f;
 
@@ -19,7 +21,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (Input.GetMouseButton(0))
             {
-                deltaX = Input.GetAxis("Mouse X");
+                deltaX = Input.GetAxis(MOUSE_X);
             }
             else
             {
@@ -28,7 +30,10 @@ public class PlayerController : MonoBehaviour
             
             transform.Translate(deltaX * xSpeed * Time.deltaTime, 0, zSpeed * Time.deltaTime);
 
-            transform.position = new Vector3(Mathf.Clamp(transform.position.x, -2f, 2f), transform.position.y, transform.position.z);
+            transform.position = new Vector3(
+                Mathf.Clamp(transform.position.x, -2f, 2f), 
+                transform.position.y, 
+                 transform.position.z);
         }
     }
     
