@@ -15,7 +15,7 @@ public class CharacterCustomization : MonoBehaviour
     public List<CharacterPart> characterParts = new List<CharacterPart>();
     [Header("Hips for change character height")]
     public List<Transform> originHips = new List<Transform>();
-    
+
     [Header("All clothes anchors")]
     /// <summary>
     /// Anchors for clothes
@@ -28,8 +28,8 @@ public class CharacterCustomization : MonoBehaviour
     [Header("Transforms for change character offset by Y coordinate")]
     //Transforms for apply Y offset;
     public Transform[] transforms;
-    
-    public enum ClothesPartType: int
+
+    public enum ClothesPartType : int
     {
         Hat,
         TShirt,
@@ -41,8 +41,8 @@ public class CharacterCustomization : MonoBehaviour
     public enum BodyShapeType : int
     {
         Fat = 0,
-        Muscles,Slimness = 1,
-        Thin,BreastSize = 2
+        Muscles, Slimness = 1,
+        Thin, BreastSize = 2
     }
 
     //Presets for character customization      
@@ -87,7 +87,7 @@ public class CharacterCustomization : MonoBehaviour
     public void NextHead()
     {
         int next = headActiveIndex + 1;
-        if (next > headsPresets.Count -1)
+        if (next > headsPresets.Count - 1)
             next = 0;
         SetHeadByIndex(next);
     }
@@ -154,22 +154,22 @@ public class CharacterCustomization : MonoBehaviour
     /// <param name="forClothPart">Apply to specific cloth parts</param>
     public void SetBodyShape(BodyShapeType type, float weight, string[] forPart = null, ClothesPartType[] forClothPart = null)
     {
-        foreach(var part in characterParts)
+        foreach (var part in characterParts)
         {
             if (forPart != null && !forPart.Contains(part.name))
                 continue;
             foreach (var skinnedMesh in part.skinnedMesh)
-            {               
-                for(var i = 0;i< skinnedMesh.sharedMesh.blendShapeCount; i++)
+            {
+                for (var i = 0; i < skinnedMesh.sharedMesh.blendShapeCount; i++)
                 {
-                    if(i == (int)type)
+                    if (i == (int)type)
                     {
                         skinnedMesh.SetBlendShapeWeight((int)type, weight);
                     }
                 }
             }
         }
-        foreach(var clothPart in clothesAnchors)
+        foreach (var clothPart in clothesAnchors)
         {
             if (forClothPart != null && !forClothPart.Contains(clothPart.partType))
                 continue;
@@ -196,7 +196,7 @@ public class CharacterCustomization : MonoBehaviour
     /// <param name="lodLevel">LOD level</param>
     public void ForceLOD(int lodLevel)
     {
-        if(lodLevel != 0)
+        if (lodLevel != 0)
         {
             _lodGroup.ForceLOD(lodLevel);
         }
@@ -217,9 +217,9 @@ public class CharacterCustomization : MonoBehaviour
         float yOffset = 0f;
 
         if (clothPreset != null)
-            UnHideParts(clothPreset.hideParts, type);     
+            UnHideParts(clothPreset.hideParts, type);
 
-        if(type == ClothesPartType.Pants || type == ClothesPartType.TShirt)
+        if (type == ClothesPartType.Pants || type == ClothesPartType.TShirt)
         {
             UnHideParts(new string[] { "Spine" }, type);
         }
@@ -236,14 +236,14 @@ public class CharacterCustomization : MonoBehaviour
             {
                 ca.skinnedMesh[i].sharedMesh = newPreset.mesh[i];
 
-                for(var blendCount =0;blendCount < ca.skinnedMesh[i].sharedMesh.blendShapeCount; blendCount++)
+                for (var blendCount = 0; blendCount < ca.skinnedMesh[i].sharedMesh.blendShapeCount; blendCount++)
                 {
-                   ca.skinnedMesh[i].SetBlendShapeWeight(blendCount, bodyShapeWeight[blendCount]);
-                }               
+                    ca.skinnedMesh[i].SetBlendShapeWeight(blendCount, bodyShapeWeight[blendCount]);
+                }
             }
             ClothPreset shirt = getPreset(ClothesPartType.TShirt, clothesActiveIndexes[ClothesPartType.TShirt]);
             ClothPreset pants = getPreset(ClothesPartType.Pants, clothesActiveIndexes[ClothesPartType.Pants]);
-            if((shirt != null && pants != null) && (shirt.notVisibleSpine && pants.notVisibleSpine))
+            if ((shirt != null && pants != null) && (shirt.notVisibleSpine && pants.notVisibleSpine))
             {
                 HideParts(new string[] { "Spine" });
             }
@@ -279,9 +279,9 @@ public class CharacterCustomization : MonoBehaviour
     /// <param name="height"></param>
     public void SetHeight(float height)
     {
-        foreach(var tr in originHips)
+        foreach (var tr in originHips)
         {
-            tr.localScale = new Vector3(1+height/2, 1+height, 1+height);
+            tr.localScale = new Vector3(1 + height / 2, 1 + height, 1 + height);
         }
     }
     /// <summary>
@@ -300,7 +300,7 @@ public class CharacterCustomization : MonoBehaviour
         }
         else
         {
-            foreach(var hairsm in hair.skinnedMesh)
+            foreach (var hairsm in hair.skinnedMesh)
             {
                 hairsm.sharedMesh = null;
             }
@@ -383,7 +383,7 @@ public class CharacterCustomization : MonoBehaviour
     /// <returns></returns>
     public CharacterPart GetCharacterPart(string name)
     {
-        foreach(CharacterPart p in characterParts)
+        foreach (CharacterPart p in characterParts)
         {
             if (p.name == name)
                 return p;
