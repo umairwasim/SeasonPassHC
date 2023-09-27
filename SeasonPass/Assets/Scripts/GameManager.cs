@@ -4,6 +4,8 @@ namespace BhorGames
 {
     public class GameManager : MonoBehaviour
     {
+        private const string WALK = "walk";
+
         public static GameManager Instance;
         public Animator playerAnimator;
 
@@ -15,6 +17,11 @@ namespace BhorGames
             Application.targetFrameRate = 60;
         }
 
+        private void Start()
+        {
+            playerAnimator = GetComponent<Animator>();
+        }
+
         private void Update()
         {
             if (!isGameStarted)
@@ -22,7 +29,7 @@ namespace BhorGames
                 if (Input.GetMouseButtonDown(0))
                 {
                     isGameStarted = true;
-                    playerAnimator.GetComponent<Animator>().SetTrigger("walk");
+                    playerAnimator.SetTrigger(WALK);
                     
                 }
             }
