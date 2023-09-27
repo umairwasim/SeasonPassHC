@@ -4,11 +4,14 @@ using BhorGames;
 
 public class Door : MonoBehaviour
 {
+    private const string PLAYER = "Player";
+    private const string SPIN = "spin";
+
     [SerializeField] private SeasonTheme seasonTheme;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag(PLAYER))
         {
             if (!SeasonManager.currentSeason.Equals(seasonTheme))
             {
@@ -17,7 +20,7 @@ public class Door : MonoBehaviour
             ResetClothes(other);
             SeasonManager.Instance.ChangePlatformMaterials(seasonTheme);
             SeasonManager.RestoreLives();
-            FindObjectOfType<GameManager>().playerAnimator.SetTrigger("spin");
+            GameManager.Instance.playerAnimator.SetTrigger(SPIN);
             UIManager.Instance.ChangeSeasonTextAndImages(seasonTheme);
         }
     }
