@@ -9,6 +9,9 @@ public enum SeasonTheme
  
 public class SeasonManager : MonoBehaviour
 {
+    private const string FAIL = "fail";
+    private const string SEASONS = "Seasons";
+
     public static SeasonManager Instance;
     public static SeasonTheme currentSeason;
     public static GameObject seasonsGO;
@@ -24,7 +27,7 @@ public class SeasonManager : MonoBehaviour
 
     private void Start()
     {
-        seasonsGO = GameObject.Find("Seasons");
+        seasonsGO = GameObject.Find(SEASONS);
         
         foreach (Transform child in seasonsGO.transform)
         {
@@ -44,7 +47,7 @@ public class SeasonManager : MonoBehaviour
         
         if (lives == 0)
         {
-            GameManager.Instance.playerAnimator.SetTrigger("fail");
+            GameManager.Instance.playerAnimator.SetTrigger(FAIL);
             FindObjectOfType<PlayerController>().enabled = false;
             UIManager.Instance.OpenLosePanel();
         }
