@@ -3,29 +3,40 @@ using TMPro;
 
 public class Clothes : MonoBehaviour
 {
+    private const string CLOTHES = "Clothes";
+    private const string SEASON_TEXT = "SeasonText";
+    private const string ZONES = "Zones/";
+    private const float TEXT_Y = 3.2f;
+    private const string EMOJIS = "Emojis/";
+    private const string EMOJI_COOL = "EmojiCool";
+    private const string EMOJI_ANGRY = "EmojiAngry";
+    private const string EMOJI_SAD = "EmojiSad";
+    private const string EMOJI_YAWM = "EmojiYawn";
+    private const string EMOJI_SCARED = "EmojiScared";
+
     public CharacterCustomization.ClothesPartType clothesPartType;
     public int index;
     public SeasonTheme relatedSeason;
 
     private GameObject clothesGO;
-    
+
     private float rotateSpeed = 120f;
     private Vector3 startingScale;
 
     private void Start()
     {
-        clothesGO = GameObject.Find("Clothes");
+        clothesGO = GameObject.Find(CLOTHES);
         startingScale = transform.localScale;
 
-        string zonePath = "Zones/" + relatedSeason;
+        string zonePath = ZONES + relatedSeason;
         GameObject zone = Instantiate(Resources.Load(zonePath)) as GameObject;
         zone.GetComponent<Zone>().linkedClothes = this;
         zone.transform.position = new Vector3(transform.position.x, 0.6f, transform.position.z);
         zone.transform.SetParent(transform.parent);
 
-        GameObject seasonText = Instantiate(Resources.Load("SeasonText")) as GameObject;
+        GameObject seasonText = Instantiate(Resources.Load(SEASON_TEXT)) as GameObject;
         seasonText.GetComponent<TextMeshPro>().text = relatedSeason.ToString();
-        seasonText.transform.position = new Vector3(transform.position.x, 3.2f, transform.position.z);
+        seasonText.transform.position = new Vector3(transform.position.x, TEXT_Y, transform.position.z);
         seasonText.transform.SetParent(transform);
     }
 
@@ -38,38 +49,40 @@ public class Clothes : MonoBehaviour
     public void SetClothes(Collider other)
     {
         other.GetComponent<CharacterCustomization>().SetElementByIndex(clothesPartType, index);
-        
+
         if (SeasonManager.currentSeason != relatedSeason)
         {
             SeasonManager.LoseLives();
         }
         string path = DetectEmojiPath();
-        GameObject emoji = Instantiate(Resources.Load(path) as GameObject, new Vector3(transform.position.x, 3f, transform.position.z), Quaternion.identity);
+        GameObject emoji = Instantiate(Resources.Load(path) as GameObject, 
+            new Vector3(transform.position.x, 3f, transform.position.z), 
+            Quaternion.identity);
 
         Destroy(clothesGO.transform.GetChild(0).gameObject);
     }
 
     private string DetectEmojiPath()
     {
-        string path = "Emojis/";
-        
+        string path = EMOJIS;
+
         if (SeasonManager.currentSeason.Equals(SeasonTheme.AUTUMN))
         {
-            if (relatedSeason.Equals(SeasonTheme.AUTUMN)) path += "EmojiCool";
-            else if (relatedSeason.Equals(SeasonTheme.SUMMER)) path += "EmojiAngry";
-            else if (relatedSeason.Equals(SeasonTheme.WINTER)) path += "EmojiSad";
+            if (relatedSeason.Equals(SeasonTheme.AUTUMN)) path += EMOJI_COOL;
+            else if (relatedSeason.Equals(SeasonTheme.SUMMER)) path += EMOJI_ANGRY;
+            else if (relatedSeason.Equals(SeasonTheme.WINTER)) path += EMOJI_SAD;
         }
         else if (SeasonManager.currentSeason.Equals(SeasonTheme.SUMMER))
         {
-            if (relatedSeason.Equals(SeasonTheme.AUTUMN)) path += "EmojiSad";
-            else if (relatedSeason.Equals(SeasonTheme.SUMMER)) path += "EmojiCool";
-            else if (relatedSeason.Equals(SeasonTheme.WINTER)) path += "EmojiYawn";
+            if (relatedSeason.Equals(SeasonTheme.AUTUMN)) path += EMOJI_SAD;
+            else if (relatedSeason.Equals(SeasonTheme.SUMMER)) path += EMOJI_COOL;
+            else if (relatedSeason.Equals(SeasonTheme.WINTER)) path += EMOJI_YAWM;
         }
         else if (SeasonManager.currentSeason.Equals(SeasonTheme.WINTER))
         {
-            if (relatedSeason.Equals(SeasonTheme.AUTUMN)) path += "EmojiYawn";
-            else if (relatedSeason.Equals(SeasonTheme.SUMMER)) path += "EmojiScared";
-            else if (relatedSeason.Equals(SeasonTheme.WINTER)) path += "EmojiCool";
+            if (relatedSeason.Equals(SeasonTheme.AUTUMN)) path += EMOJI_YAWM;
+            else if (relatedSeason.Equals(SeasonTheme.SUMMER)) path += EMOJI_SCARED;
+            else if (relatedSeason.Equals(SeasonTheme.WINTER)) path += EMOJI_COOL;
         }
 
         return path;
