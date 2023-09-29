@@ -13,7 +13,9 @@ namespace BhorGames
 
         void Awake()
         {
-            if (Instance == null) Instance = this;
+            if (Instance == null) 
+                Instance = this;
+            
             Application.targetFrameRate = 60;
         }
 

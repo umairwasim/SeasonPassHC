@@ -30,6 +30,11 @@ namespace BhorGames
             }
         }
 
+        public void HideLevelText()
+        {
+            levelText.gameObject.SetActive(false);
+        }
+
         public void UpdateLevelTxt()
         {
             LevelManager.Instance.currentLevel = PlayerPrefs.GetInt("level", 0);

@@ -28,16 +28,25 @@ public class Clothes : MonoBehaviour
         clothesGO = GameObject.Find(CLOTHES);
         startingScale = transform.localScale;
 
+        InitializeZone();
+        InitializeSeason();
+    }
+
+    private void InitializeSeason()
+    {
+        GameObject seasonText = Instantiate(Resources.Load(SEASON_TEXT)) as GameObject;
+        seasonText.GetComponent<TextMeshPro>().text = relatedSeason.ToString();
+        seasonText.transform.position = new Vector3(transform.position.x, TEXT_Y, transform.position.z);
+        seasonText.transform.SetParent(transform);
+    }
+
+    private void InitializeZone()
+    {
         string zonePath = ZONES + relatedSeason;
         GameObject zone = Instantiate(Resources.Load(zonePath)) as GameObject;
         zone.GetComponent<Zone>().linkedClothes = this;
         zone.transform.position = new Vector3(transform.position.x, 0.6f, transform.position.z);
         zone.transform.SetParent(transform.parent);
-
-        GameObject seasonText = Instantiate(Resources.Load(SEASON_TEXT)) as GameObject;
-        seasonText.GetComponent<TextMeshPro>().text = relatedSeason.ToString();
-        seasonText.transform.position = new Vector3(transform.position.x, TEXT_Y, transform.position.z);
-        seasonText.transform.SetParent(transform);
     }
 
     private void Update()
@@ -51,12 +60,11 @@ public class Clothes : MonoBehaviour
         other.GetComponent<CharacterCustomization>().SetElementByIndex(clothesPartType, index);
 
         if (SeasonManager.currentSeason != relatedSeason)
-        {
             SeasonManager.LoseLives();
-        }
+
         string path = DetectEmojiPath();
-        GameObject emoji = Instantiate(Resources.Load(path) as GameObject, 
-            new Vector3(transform.position.x, 3f, transform.position.z), 
+        GameObject emoji = Instantiate(Resources.Load(path) as GameObject,
+            new Vector3(transform.position.x, 3f, transform.position.z),
             Quaternion.identity);
 
         Destroy(clothesGO.transform.GetChild(0).gameObject);

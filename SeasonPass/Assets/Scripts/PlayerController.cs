@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.Instance)
+            return;
+
         if (GameManager.Instance.isGameStarted)
         {
             if (Input.GetMouseButtonDown(0))
