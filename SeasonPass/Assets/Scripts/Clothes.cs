@@ -6,21 +6,20 @@ public class Clothes : MonoBehaviour
     private const string CLOTHES = "Clothes";
     private const string SEASON_TEXT = "SeasonText";
     private const string ZONES = "Zones/";
-    private const float TEXT_Y = 3.2f;
     private const string EMOJIS = "Emojis/";
     private const string EMOJI_COOL = "EmojiCool";
     private const string EMOJI_ANGRY = "EmojiAngry";
     private const string EMOJI_SAD = "EmojiSad";
     private const string EMOJI_YAWM = "EmojiYawn";
     private const string EMOJI_SCARED = "EmojiScared";
+    private const float TEXT_Y = 3.2f;
 
-    public CharacterCustomization.ClothesPartType clothesPartType;
     public int index;
+    public CharacterCustomization.ClothesPartType clothesPartType;
     public SeasonTheme relatedSeason;
 
-    private GameObject clothesGO;
-
     private float rotateSpeed = 120f;
+    private GameObject clothesGO;
     private Vector3 startingScale;
 
     private void Start()
