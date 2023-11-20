@@ -1,5 +1,5 @@
 using UnityEngine;
-using BhorGames;
+//using BhorGames;
 
 
 public class PlayerController : MonoBehaviour
@@ -30,14 +30,14 @@ public class PlayerController : MonoBehaviour
             {
                 deltaX = 0;
             }
-            
+
             transform.Translate(deltaX * xSpeed * Time.deltaTime, 0, zSpeed * Time.deltaTime);
 
             transform.position = new Vector3(
-                Mathf.Clamp(transform.position.x, -2f, 2f), 
-                transform.position.y, 
+                Mathf.Clamp(transform.position.x, -2f, 2f),
+                transform.position.y,
                  transform.position.z);
         }
     }
-    
+
 }
