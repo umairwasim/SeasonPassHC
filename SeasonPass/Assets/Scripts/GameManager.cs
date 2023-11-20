@@ -1,7 +1,7 @@
 using UnityEngine;
 
-namespace BhorGames
-{
+//namespace BhorGames
+//{
     public class GameManager : MonoBehaviour
     {
         private const string WALK = "walk";
@@ -13,9 +13,9 @@ namespace BhorGames
 
         void Awake()
         {
-            if (Instance == null) 
+            if (Instance == null)
                 Instance = this;
-            
+
             Application.targetFrameRate = 60;
         }
 
@@ -26,10 +26,9 @@ namespace BhorGames
                 if (Input.GetMouseButtonDown(0))
                 {
                     isGameStarted = true;
-                    playerAnimator.GetComponent<Animator>().SetTrigger(WALK);
-                    
+                    playerAnimator.SetTrigger(WALK);
                 }
             }
         }
     }
-}
+//}
