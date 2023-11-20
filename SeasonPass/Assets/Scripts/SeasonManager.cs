@@ -1,12 +1,11 @@
 using System;
 using UnityEngine;
-using BhorGames;
 
 public enum SeasonTheme
 {
     WINTER, SUMMER, AUTUMN
 }
- 
+
 public class SeasonManager : MonoBehaviour
 {
     private const string FAIL = "fail";
@@ -28,12 +27,12 @@ public class SeasonManager : MonoBehaviour
     private void Start()
     {
         seasonsGO = GameObject.Find(SEASONS);
-        
+
         foreach (Transform child in seasonsGO.transform)
         {
             if (child.gameObject.activeSelf)
             {
-                currentSeason = (SeasonTheme) Enum.Parse(typeof(SeasonTheme), child.name);
+                currentSeason = (SeasonTheme)Enum.Parse(typeof(SeasonTheme), child.name);
                 UIManager.Instance.ChangeSeasonTextAndImages(currentSeason);
                 ChangePlatformMaterials(currentSeason);
                 break;
@@ -44,13 +43,14 @@ public class SeasonManager : MonoBehaviour
     public static void LoseLives()
     {
         lives--;
-        
-        if (lives == 0)
-        {
-            GameManager.Instance.playerAnimator.SetTrigger(FAIL);
-            FindObjectOfType<PlayerController>().enabled = false;
-            UIManager.Instance.OpenLosePanel();
-        }
+
+        //Level Failed logic is handled in FinishLine script
+        //if (lives == 0)
+        //{
+        //    GameManager.Instance.playerAnimator.SetTrigger(FAIL);
+        //    FindObjectOfType<PlayerController>().enabled = false;
+        //    UIManager.Instance.OpenLosePanel();
+        //}
     }
 
     public static void RestoreLives()
