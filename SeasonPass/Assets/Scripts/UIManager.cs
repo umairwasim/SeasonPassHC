@@ -3,8 +3,8 @@ using DG.Tweening;
 using UnityEngine.UI;
 using TMPro;
 
-namespace BhorGames
-{
+//namespace BhorGames
+//{
     public class UIManager : MonoBehaviour
     {
         public static UIManager Instance;
@@ -60,4 +60,4 @@ namespace BhorGames
             winLosePanel.GetChild(2).DOScale(0, 0.3f).SetEase(Ease.Linear);
         }
     }
-}
+//}
