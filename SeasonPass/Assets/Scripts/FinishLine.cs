@@ -1,19 +1,31 @@
 using UnityEngine;
-using BhorGames;
+//using BhorGames;
 
 public class FinishLine : MonoBehaviour
 {
-    private const string WIN = "win";
     private const string PLAYER = "Player";
+    private const string WIN = "win";
+    private const string FAIL = "fail";
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag(PLAYER))
         {
             UIManager.Instance.HideLevelText();
-            GameManager.Instance.playerAnimator.SetTrigger(WIN);
             FindObjectOfType<PlayerController>().enabled = false;
-            UIManager.Instance.OpenWinPanel();
+
+            //Level Failed
+            if (SeasonManager.lives <= 0)
+            {
+                GameManager.Instance.playerAnimator.SetTrigger(FAIL);
+                UIManager.Instance.OpenLosePanel();
+            }
+            //Level Won
+            else
+            {
+                GameManager.Instance.playerAnimator.SetTrigger(WIN);
+                UIManager.Instance.OpenWinPanel();
+            }
         }
     }
 }
